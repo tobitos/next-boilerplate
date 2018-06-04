@@ -41,7 +41,6 @@ const getMessages = locale => {
 
 app.prepare().then(() => {
   createServer((req, res) => {
-    console.log('languages', languages);
     const accept = accepts(req);
     const locale = accept.language(languages);
     req.locale = locale;
