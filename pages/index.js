@@ -1,10 +1,15 @@
+// @flow strict
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
+import type { Dispatch } from 'redux';
 import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
 import { FormattedMessage, FormattedNumber, defineMessages } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import Head from 'next/head';
 import styled from 'styled-components';
+
+import type { Action } from '../store';
 
 import ConnectedComp from '../components/ConnectedComp';
 import pageWithIntl from '../components/PageWithIntl';
@@ -14,7 +19,14 @@ const Number = styled.h1`
   font-size: 1rem;
 `;
 
-class Home extends React.Component {
+type Props = {
+  startClock: () => IntervalID,
+  intl: IntlShape
+};
+
+class Home extends React.Component<Props> {
+  timer: IntervalID;
+
   static getInitialProps({ store, isServer }) {
     store.dispatch(serverRenderClock(isServer));
     store.dispatch(addCount());
@@ -58,7 +70,7 @@ class Home extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     addCount: bindActionCreators(addCount, dispatch),
     startClock: bindActionCreators(startClock, dispatch)

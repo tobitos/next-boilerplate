@@ -3,12 +3,15 @@
   "env": {
     "development": {
       "plugins": [
-        "react-intl",
+        "transform-flow-strip-types",
         ["styled-components", { "ssr": true, "displayName": true }]
       ]
     },
     "production": {
-      "plugins": [["styled-components", { "ssr": true, "displayName": true }]]
+      "plugins": [
+        "transform-flow-strip-types",
+        ["styled-components", { "ssr": true, "displayName": true }]
+      ]
     }
   }
 }

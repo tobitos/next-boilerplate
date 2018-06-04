@@ -1,10 +1,25 @@
+// @flow
+import * as React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+
+type NextContext = {
+  pathname: string,
+  query: any,
+  req: {
+    locale: string,
+    localeDataScript: any
+  },
+  res?: any,
+  jsonPageRes?: any,
+  err?: any,
+  renderPage(cb: Function): void
+};
 
 // The document (which is SSR-only) needs to be customized to expose the locale
 // data for the user's locale for React Intl to work in the browser.
 export default class IntlDocument extends Document {
-  static async getInitialProps(context) {
+  static async getInitialProps(context: NextContext) {
     const props = await super.getInitialProps(context);
     const { req: { locale, localeDataScript } } = context;
     const sheet = new ServerStyleSheet();

@@ -1,4 +1,5 @@
-import React from 'react';
+// @flow strict
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Link from 'next/link';
 

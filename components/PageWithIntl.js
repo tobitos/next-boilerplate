@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// @flow strict
+import * as React from 'react';
 import { IntlProvider, addLocaleData, injectIntl } from 'react-intl';
 
 // Register React Intl's locale data for the user's locale in the browser. This
@@ -10,11 +11,24 @@ if (typeof window !== 'undefined' && window.ReactIntlLocaleData) {
   });
 }
 
-export default Page => {
+type Props = {
+  locale: string,
+  messages: { [string]: string },
+  now: number
+};
+
+type NextContext = {
+  req: {
+    locale: string,
+    messages: { [string]: string }
+  }
+};
+
+export default (Page: React.Element) => {
   const IntlPage = injectIntl(Page);
 
-  return class PageWithIntl extends Component {
-    static async getInitialProps(context) {
+  return class PageWithIntl extends React.Component<Props> {
+    static async getInitialProps(context: NextContext) {
       let props;
       if (typeof Page.getInitialProps === 'function') {
         props = await Page.getInitialProps(context);

@@ -1,11 +1,22 @@
-import React from 'react';
+// @flow strict
+import * as React from 'react';
 import { bindActionCreators } from 'redux';
+import type { Dispatch } from 'redux';
 import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
 import ConnectedComp from '../components/ConnectedComp';
 import pageWithIntl from '../components/PageWithIntl';
+import type { IntlShape } from 'react-intl';
+import type { Action } from '../store';
 
-class OtherPage extends React.Component {
+type Props = {
+  startClock: () => IntervalID,
+  intl: IntlShape
+};
+
+class OtherPage extends React.Component<Props> {
+  timer: IntervalID;
+
   static getInitialProps({ store, isServer }) {
     store.dispatch(serverRenderClock(isServer));
     store.dispatch(addCount());
@@ -30,7 +41,7 @@ class OtherPage extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     addCount: bindActionCreators(addCount, dispatch),
     startClock: bindActionCreators(startClock, dispatch)
