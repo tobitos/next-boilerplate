@@ -50,7 +50,12 @@ export default (Page: React.Element) => {
     render() {
       const { locale, messages, now, ...props } = this.props;
       return (
-        <IntlProvider locale={locale} messages={messages} initialNow={now}>
+        <IntlProvider
+          locale={locale}
+          messages={messages}
+          initialNow={now}
+          textComponent={React.Fragment}
+        >
           <IntlPage {...props} />
         </IntlProvider>
       );
