@@ -7,7 +7,7 @@ import pageWithIntl from '../components/PageWithIntl';
 import { FormattedMessage, FormattedNumber, defineMessages } from 'react-intl';
 import Head from 'next/head';
 
-class Counter extends React.Component {
+class Home extends React.Component {
   static getInitialProps({ store, isServer }) {
     store.dispatch(serverRenderClock(isServer));
     store.dispatch(addCount());
@@ -29,14 +29,20 @@ class Counter extends React.Component {
           <meta
             name="description"
             content={this.props.intl.formatMessage({
-              id: 'containers.ArticlePage.Info.features'
+              id: 'description'
             })}
           />
-          <title>Title</title>
+          <title>
+            {this.props.intl.formatMessage({
+              id: 'title'
+            })}
+          </title>
         </Head>
-        <FormattedMessage id="containers.Footer.madeIn" />
-        <FormattedNumber value={1000} />
-        <ConnectedComp title="Index Page" linkTo="/other" />
+        <FormattedMessage id="title" /> <FormattedNumber value={2000} />
+        <ConnectedComp
+          title={this.props.intl.formatMessage({ id: 'greeting' })}
+          linkTo="/other"
+        />
       </div>
     );
   }
@@ -49,4 +55,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default pageWithIntl(connect(null, mapDispatchToProps)(Counter));
+export default pageWithIntl(connect(null, mapDispatchToProps)(Home));

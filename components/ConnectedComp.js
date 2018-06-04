@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import Clock from './Clock';
 import AddCount from './AddCount';
+import { FormattedMessage } from 'react-intl';
 
 export default connect(state => state)(
   ({ title, linkTo, lastUpdate, light }) => {
@@ -12,7 +13,9 @@ export default connect(state => state)(
         <AddCount />
         <nav>
           <Link href={linkTo}>
-            <a>Navigate</a>
+            <a>
+              <FormattedMessage id="navigate" />
+            </a>
           </Link>
         </nav>
       </div>

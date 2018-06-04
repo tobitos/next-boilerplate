@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
 import ConnectedComp from '../components/ConnectedComp';
+import pageWithIntl from '../components/PageWithIntl';
 
-class Counter extends React.Component {
+class OtherPage extends React.Component {
   static getInitialProps({ store, isServer }) {
     store.dispatch(serverRenderClock(isServer));
     store.dispatch(addCount());
@@ -20,7 +21,12 @@ class Counter extends React.Component {
   }
 
   render() {
-    return <ConnectedComp title="Other Page" linkTo="/" />;
+    return (
+      <ConnectedComp
+        title={this.props.intl.formatMessage({ id: 'otherPage' })}
+        linkTo="/"
+      />
+    );
   }
 }
 
@@ -31,4 +37,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Counter);
+export default pageWithIntl(connect(null, mapDispatchToProps)(OtherPage));
