@@ -1,19 +1,14 @@
 {
-  "presets": [
-    "next/babel"
-  ],
+  "presets": ["next/babel"],
   "env": {
     "development": {
       "plugins": [
-        "react-intl"
+        "react-intl",
+        ["styled-components", { "ssr": true, "displayName": true }]
       ]
     },
     "production": {
-      "plugins": [
-        ["react-intl", {
-          "messagesDir": "lang/.messages/"
-        }]
-      ]
+      "plugins": [["styled-components", { "ssr": true, "displayName": true }]]
     }
   }
 }

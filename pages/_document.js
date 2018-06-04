@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 // The document (which is SSR-only) needs to be customized to expose the locale
 // data for the user's locale for React Intl to work in the browser.
@@ -6,8 +7,16 @@ export default class IntlDocument extends Document {
   static async getInitialProps(context) {
     const props = await super.getInitialProps(context);
     const { req: { locale, localeDataScript } } = context;
+    const sheet = new ServerStyleSheet();
+    const page = context.renderPage(App => props =>
+      sheet.collectStyles(<App {...props} />)
+    );
+    const styleTags = sheet.getStyleElement();
+
     return {
       ...props,
+      ...page,
+      styleTags,
       locale,
       localeDataScript
     };
@@ -21,7 +30,7 @@ export default class IntlDocument extends Document {
 
     return (
       <html>
-        <Head />
+        <Head>{this.props.styleTags}</Head>
         <body>
           <Main />
           <script src={polyfill} />
