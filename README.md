@@ -4,3 +4,4 @@
 * with-redux-wrapper
 * with-styled-components
 * with-flow
+* with-next-routes

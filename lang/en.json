@@ -3,5 +3,6 @@
   "description": "A next.js boilerplate for Morressier",
   "greeting": "Hello, World!",
   "otherPage": "The other page",
+  "articleNotFound": "404 - Article not found",
   "navigate": "Navigate"
 }

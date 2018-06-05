@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
-import { FormattedMessage, FormattedNumber, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 import Head from 'next/head';
 import styled from 'styled-components';

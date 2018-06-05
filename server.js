@@ -6,15 +6,15 @@ Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
 
 const { readFileSync } = require('fs');
 const { basename } = require('path');
-const { createServer } = require('http');
+const express = require('express');
 const accepts = require('accepts');
 const glob = require('glob');
 const next = require('next');
+const routes = require('./routes');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-const handle = app.getRequestHandler();
 
 // Get the supported languages by looking for translations in the `lang/` dir.
 const languages = glob.sync('./lang/*.json').map(f => basename(f, '.json'));
@@ -39,16 +39,21 @@ const getMessages = locale => {
   return require(`./lang/${locale}.json`);
 };
 
+const intlHandler = (req, res, next) => {
+  const accept = accepts(req);
+  const locale = accept.language(languages);
+  req.locale = locale;
+  req.localeDataScript = getLocaleDataScript(locale);
+  req.messages = getMessages(locale);
+  next();
+};
+
 app.prepare().then(() => {
-  createServer((req, res) => {
-    const accept = accepts(req);
-    const locale = accept.language(languages);
-    req.locale = locale;
-    req.localeDataScript = getLocaleDataScript(locale);
-    req.messages = getMessages(locale);
-    handle(req, res);
-  }).listen(port, err => {
-    if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
-  });
+  express()
+    .use(intlHandler)
+    .use(routes.getRequestHandler(app))
+    .listen(port, err => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
+    });
 });

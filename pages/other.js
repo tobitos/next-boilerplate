@@ -35,7 +35,7 @@ class OtherPage extends React.Component<Props> {
     return (
       <ConnectedComp
         title={this.props.intl.formatMessage({ id: 'otherPage' })}
-        linkTo="/"
+        linkTo="/dynamic/hello-world"
       />
     );
   }
