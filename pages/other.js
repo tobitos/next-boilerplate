@@ -2,11 +2,13 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
-import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
-import ConnectedComp from '../components/ConnectedComp';
-import pageWithIntl from '../components/PageWithIntl';
+import { injectIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
+
+import ConnectedComp from '../components/ConnectedComp';
+
+import { startClock, addCount, serverRenderClock } from '../store';
 import type { Action } from '../store';
 
 type Props = {
@@ -48,4 +50,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   };
 };
 
-export default pageWithIntl(connect(null, mapDispatchToProps)(OtherPage));
+export default injectIntl(connect(null, mapDispatchToProps)(OtherPage));

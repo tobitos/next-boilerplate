@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { startClock, addCount, serverRenderClock } from '../store';
 import { connect } from 'react-redux';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, injectIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import type { Action } from '../store';
 
 import ConnectedComp from '../components/ConnectedComp';
-import pageWithIntl from '../components/PageWithIntl';
 
 const Number = styled.h1`
   color: ${props => props.theme.specialFont};
@@ -77,4 +76,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   };
 };
 
-export default pageWithIntl(connect(null, mapDispatchToProps)(Home));
+export default injectIntl(connect(null, mapDispatchToProps)(Home));

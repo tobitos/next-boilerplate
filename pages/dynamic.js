@@ -1,7 +1,7 @@
 // @flow strict
 import * as React from 'react';
 import ConnectedComp from '../components/ConnectedComp';
-import pageWithIntl from '../components/PageWithIntl';
+import { injectIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 
 const articles = [
@@ -19,6 +19,8 @@ class DynamicPage extends React.Component<Props> {
 
   static getInitialProps({ query, res }) {
     const article = articles.find(article => article.id === query.id);
+
+    console.log('query', query);
 
     if (!article && res) {
       res.statusCode = 404;
@@ -38,4 +40,4 @@ class DynamicPage extends React.Component<Props> {
   }
 }
 
-export default pageWithIntl(DynamicPage);
+export default injectIntl(DynamicPage);
