@@ -1,13 +1,8 @@
 // @flow strict
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import type { Dispatch } from 'redux';
-import { startClock, addCount, serverRenderClock } from '../store';
-import { connect } from 'react-redux';
 import ConnectedComp from '../components/ConnectedComp';
 import pageWithIntl from '../components/PageWithIntl';
 import type { IntlShape } from 'react-intl';
-import type { Action } from '../store';
 
 const articles = [
   { id: 'hello-world', title: 'Hello world' },
