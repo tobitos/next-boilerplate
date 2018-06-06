@@ -1,8 +1,7 @@
 // @flow strict
 import * as React from 'react';
-import ConnectedComp from '../components/ConnectedComp';
-import { injectIntl } from 'react-intl';
-import type { IntlShape } from 'react-intl';
+
+import Dynamic from '../containers/Dynamic';
 
 const articles = [
   { id: 'hello-world', title: 'Hello world' },
@@ -10,17 +9,18 @@ const articles = [
 ];
 
 type Props = {
-  intl: IntlShape,
   article: ?{ id: string, title: string }
 };
 
 class DynamicPage extends React.Component<Props> {
-  timer: IntervalID;
-
-  static getInitialProps({ query, res }) {
+  static getInitialProps({
+    query,
+    res
+  }: {
+    query: { id?: string },
+    res: { statusCode: number }
+  }) {
     const article = articles.find(article => article.id === query.id);
-
-    console.log('query', query);
 
     if (!article && res) {
       res.statusCode = 404;
@@ -30,14 +30,8 @@ class DynamicPage extends React.Component<Props> {
   }
 
   render() {
-    return (
-      <ConnectedComp
-        title={`Dynamic: ${(this.props.article && this.props.article.title) ||
-          this.props.intl.formatMessage({ id: 'articleNotFound' })}`}
-        linkTo="/"
-      />
-    );
+    return <Dynamic article={this.props.article} />;
   }
 }
 
-export default injectIntl(DynamicPage);
+export default DynamicPage;

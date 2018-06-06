@@ -75,22 +75,19 @@ class MyApp extends App {
     // <IntlProvider> will be a new instance even with pushState routing.
     const now = Date.now();
 
-    const WrappedComponent = Component.getWrappedInstance
-      ? Component.getWrappedInstance()
-      : Component;
-
     return {
       locale,
       messages,
       now,
-      pageProps: WrappedComponent.getInitialProps
-        ? await WrappedComponent.getInitialProps(ctx)
+      pageProps: Component.getInitialProps
+        ? await Component.getInitialProps(ctx)
         : {}
     };
   }
 
   render() {
     const { Component, pageProps, store, locale, messages, now } = this.props;
+
     return (
       <Container>
         <Provider store={store}>
