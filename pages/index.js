@@ -15,8 +15,8 @@ import ConnectedComp from '../components/ConnectedComp';
 import pageWithIntl from '../components/PageWithIntl';
 
 const Number = styled.h1`
-  color: #2fdfd1;
-  font-size: 1rem;
+  color: ${props => props.theme.specialFont};
+  font-size: 4rem;
 `;
 
 type Props = {

@@ -3,7 +3,18 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import App, { Container } from 'next/app';
 import withRedux from 'next-redux-wrapper';
+import { ThemeProvider, injectGlobal } from 'styled-components';
 import { initStore } from '../store';
+
+injectGlobal`
+  body {
+    background-color: #fffeef;
+  }
+`;
+
+const theme = {
+  specialFont: '#03536d'
+};
 
 export default withRedux(initStore)(
   class MyApp extends App {
@@ -20,7 +31,9 @@ export default withRedux(initStore)(
       return (
         <Container>
           <Provider store={store}>
-            <Component {...pageProps} />
+            <ThemeProvider theme={theme}>
+              <Component {...pageProps} />
+            </ThemeProvider>
           </Provider>
         </Container>
       );
